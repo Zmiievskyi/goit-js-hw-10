@@ -11,6 +11,9 @@ const inputRef = document.querySelector('#search-box');
 const countryListRef = document.querySelector('.country-list');
 const countryInfoRef = document.querySelector('.country-info');
 
+countryListRef.style.listStyle = 'none';
+countryInfoRef.style.listStyle = 'none';
+
 //________________________________________________________________add-listeners
 
 inputRef.addEventListener('input', _(onSearch, DEBOUNCE_DELAY));
@@ -34,7 +37,7 @@ function onSearch(e) {
     });
 }
 
-//________________________________________________________________make-Markup-list
+//________________________________________________________________markup
 
 function markup(response) {
   if (response.length > 10) {
@@ -48,7 +51,13 @@ function markup(response) {
   return markupForOne(response);
 }
 
-//________________________________________________________________make-Markup-info
+function answerIfWrongInput() {
+  return Notify.info(
+    `Too many matches found. Please enter a more specific name.`
+  );
+}
+
+//________________________________________________________________make-Markups
 
 function markupForOne(response) {
   const markupInfo = response
@@ -67,18 +76,11 @@ function markupForOne(response) {
   countryInfoRef.innerHTML = markupInfo;
 }
 
-//__________________________________________________________________
-function answerIfWrongInput() {
-  return Notify.info(
-    `Too many matches found. Please enter a more specific name.`
-  );
-}
-
 function markupForArr(response) {
   const markupItem = response
     .map(
       ({ name, flags }) =>
-        `<li style="list-style: none; display: flex; font-size: 16px;"> 
+        `<li style="display: flex; font-size: 16px;"> 
             <img style="margin-right: 10px" src=${flags.svg} alt="Кот" width="20">
             ${name}
         </li>`
@@ -88,4 +90,7 @@ function markupForArr(response) {
   countryListRef.innerHTML = markupItem;
 }
 
-console.log();
+
+
+
+
