@@ -26,16 +26,12 @@ function onSearch(e) {
   e.preventDefault();
   fetchCountriesApi.country = e.target.value;
   if (fetchCountriesApi.country.length < 1) {
-    return (countryListRef.innerHTML = '');
+    return countryListRef.innerHTML = '';
   }
   fetchCountriesApi
     .fetchCountries()
-    .then(response => {
-      console.log(response);
-      markup(response);
-    })
+    .then(markup)
     .catch(error => {
-      console.log(error);
       return Notify.failure(`Oops, there is no country with that name`);
     });
 }

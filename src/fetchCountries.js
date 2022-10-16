@@ -1,3 +1,7 @@
+const options = {
+  BASE_URL: 'https://restcountries.com/v2/name/',
+  FILTER_URL: '?fields=name,flags,capital,population,languages',
+};
 
 export default class ApiService {
   constructor() {
@@ -5,12 +9,6 @@ export default class ApiService {
   }
 
   fetchCountries() {
-    console.log(this);
-    const options = {
-      BASE_URL: 'https://restcountries.com/v2/name/',
-      FILTER_URL: '?fields=name,flags,capital,population,languages',
-    };
-
     return fetch(
       `${options.BASE_URL}${this.searchCountry.trim()}${options.FILTER_URL}`
     )
