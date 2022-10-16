@@ -43,7 +43,7 @@ function markup(response) {
   if (response.length > 10) {
     return answerIfWrongInput();
   }
-  if (response.length > 1) {
+  if (response.length >= 2 && response.length <= 10) {
     countryInfoRef.innerHTML = '';
     return markupForArr(response);
   }
