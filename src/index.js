@@ -1,5 +1,5 @@
 import './css/styles.css';
-import { fetchCountries } from './fetchCountries';
+import ApiService from './fetchCountries';
 import _ from 'lodash.debounce';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
@@ -18,15 +18,18 @@ countryInfoRef.style.listStyle = 'none';
 
 inputRef.addEventListener('input', _(onSearch, DEBOUNCE_DELAY));
 
+const fetchCountriesApi = new ApiService();
+
 //________________________________________________________________country-Search
 
 function onSearch(e) {
   e.preventDefault();
-  const input = e.target.value;
-  if (input.length < 1) {
+  fetchCountriesApi.country = e.target.value;
+  if (fetchCountriesApi.country.length < 1) {
     return (countryListRef.innerHTML = '');
   }
-  fetchCountries(input)
+  fetchCountriesApi
+    .fetchCountries()
     .then(response => {
       console.log(response);
       markup(response);
@@ -89,8 +92,3 @@ function markupForArr(response) {
 
   countryListRef.innerHTML = markupItem;
 }
-
-
-
-
-
